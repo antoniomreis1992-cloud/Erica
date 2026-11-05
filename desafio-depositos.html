@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#F2EFE6">
+<link rel="manifest" href="desafio.webmanifest?v=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ÉR$CA Desafio">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="desafio-icon-180.png?v=1">
+<link rel="icon" type="image/png" href="desafio-icon-192.png?v=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Cofre Desafio 10 mil | ÉR$CA</title>
 <meta name="description" content="Complete os 200 depósitos e guarde R$ 10.445,00. Toque no valor depositado para marcar.">
@@ -38,6 +45,20 @@ h1{margin:28px 0 16px;font-family:Georgia,'Times New Roman',serif;font-weight:70
 .small{font-size:14px;line-height:1.6;color:var(--mute)}
 .done{display:none;margin:0 0 18px;padding:14px 16px;border-radius:16px;background:var(--green);color:#fff;font-weight:700;font-size:17px;line-height:1.4}
 .done.on{display:block}
+
+.lock .price{margin:4px 0 14px;font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:clamp(40px,12vw,56px);line-height:1.05}
+.lock ul{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:10px;font-size:18px;line-height:1.4;color:var(--mute)}
+.lock li{display:flex;gap:12px}.lock li b{color:var(--green)}
+.cta{display:flex;align-items:center;justify-content:center;min-height:56px;padding:0 28px;background:#141414;color:#FFFFFF;font-weight:700;font-size:18px;text-decoration:none;border-radius:999px;text-align:center}
+.or{margin:26px 0 12px;font-weight:700;font-size:17px}
+.code-row{display:flex;flex-direction:column;gap:12px}
+.code-row label{font-size:16px;color:var(--mute)}
+.code-row input{width:100%;min-height:56px;padding:0 20px;border:1.5px solid var(--chip-line);border-radius:999px;background:#FFFFFF;color:var(--ink);font:700 20px/1 'Manrope',system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+.code-row input:focus-visible{outline:3px solid var(--gold-d);outline-offset:2px}
+.enter{appearance:none;border:0;min-height:56px;border-radius:999px;background:var(--green);color:#FFFFFF;font:700 18px/1 'Manrope',system-ui,sans-serif;cursor:pointer}
+.enter:disabled{opacity:.6}
+.err{margin:0;min-height:22px;font-size:16px;font-weight:600;color:#B3261E}
+.cta:focus-visible,.enter:focus-visible{outline:3px solid var(--gold-d);outline-offset:3px}
 </style>
 </head>
 <body>
@@ -48,7 +69,24 @@ h1{margin:28px 0 16px;font-family:Georgia,'Times New Roman',serif;font-weight:70
 <div class="tag">Organize · Planeje · Conquiste</div>
 </header>
 <h1>Cofre Desafio 10 mil</h1>
-<section class="card" aria-label="Desafio">
+<section class="card lock" id="lock" aria-label="Acesso ao desafio" hidden>
+<div class="label">Acesso ao desafio</div>
+<div class="price">R$4,99</div>
+<ul>
+<li><b>✓</b><span>200 depósitos para marcar com um toque</span></li>
+<li><b>✓</b><span>Total guardado somado na hora</span></li>
+<li><b>✓</b><span>Funciona no iPhone e no Android</span></li>
+</ul>
+<a class="cta" href="https://wa.me/5531995052545?text=Oi%21%20Vim%20pelo%20Cofre%20Desafio%2010%20mil%20e%20quero%20meu%20c%C3%B3digo%20de%20acesso%20por%20R%244%2C99.">Quero meu código</a>
+<div class="or">Já tem o seu código?</div>
+<form class="code-row" id="codeForm" novalidate>
+<label for="code">Código de acesso</label>
+<input id="code" name="code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="XXXX-XXXX">
+<p class="err" id="err" role="alert"></p>
+<button class="enter" id="enter" type="submit">Entrar no desafio</button>
+</form>
+</section>
+<section class="card" id="challenge" aria-label="Desafio" hidden>
 <div class="label">Guardado no desafio</div>
 <div class="total" id="total" aria-live="polite">R$ 0,00</div>
 <p class="status" id="status"></p>
@@ -64,6 +102,9 @@ h1{margin:28px 0 16px;font-family:Georgia,'Times New Roman',serif;font-weight:70
 </main>
 <script>
 (function(){
+var HASHES=["4e26f25b09741491ca26a2ff1b5af1290eda5d00a0134155416e09e308b84064", "34332653637bc4fd27a0fea1241f1d3e2d4aed4eb6bb20210bd61ee005e13660", "e9636a227aadc0813bf75cd3bebf85d2d02ba09715431b73eb9c68e871f8e412", "fd508e5a5c10aba46cfe1d2de77d241785efec8a5c73c92c7fe92f21e1e6d1b1", "6dc764b80bb6ac169130c1b77655296eab9d3fffd12d48b2894f50dc757f0f2c", "fa61e36602c93294c47d3dc95eb6fb6c3ae675dba9af3bcecd7e0f9f826f247d", "0059bfe7e8d3f28b498076f50664392070b56406f09ff4e4bbf441781968e181", "030d3fa0d04a0665b47eb146f5246430d0f58774e08c9f43af4fc596d55fd285", "6839c0a612ada1f37af5c0bf2af424cf3b149843cb69414850c6515d75885fb6", "bc267c587ef2ea0449a44110a259ddbb32c217d880d09531f90a3208971ed834", "18a16604902c2d0954fc5eb0a10fe0d8b581784e535709b2273268a4d2c7e872", "3e2c88b67e59997e0764b9e7bb3c171535e48c2c366afe1f92f5274542308af8", "2909c2b7dce11d2e843dd57942705959fd355c98e75832aecf952c6144872993", "4df09ca4d481d52dc3820a911621aeeddb6ec667434bf6abf668eae8b0a3789c", "085f4ecabe4ed9913665e7e53b101e94f7fbf12eae816be753d84c4672e65c96", "4a6d0ccc7a7a9dfd83dbe4e816367fca905766e0a37e47cede7d2accba8498a2", "ff9736a36d578df7fb1eea625ea8df11eb66e2c8660a0a4085a18e0768cc1305", "a8299dcd73214196157aaad7d05ee246771d45a1d7801957342f96a8dfbdd534", "08785f6bacbb81dc8298095ba4adb6ca4e0c587471076a26cefca8af0f7f4138", "117d7735f429d929a092a508f79df367c12c743274ba22adb4f8304b30dd8cc1", "097a2a9970e8558657443628b198006e8bd19013f36929e477014fcdfbd4e668", "288e64dbf43d339281a8fa7f64952eebea98049d8c0b77b631c007d718ab8406", "b88ce04707301d3ddde9474c45bcee7f595be2d2402abe8a3411564a666a6bc1", "cb58f89f026ccd596f02cbaf626aa8e6b4addce5cd33366dfe3c9055f2be74fd", "77639789e73c9f55a20fdab6e77ad64e9ef396e0e3ef61790348184cb84b09b2", "dc9d2b49649fe71187fe6b87f56194695f45e6e1e5eb46a7e19ddeba1ee2ecf1", "d4b60314346dde293fc9815721d6416a93f133542cbb7f844891b30d4fa3a5af", "9f932c01d8f6ce02f440c6610f93d340fabeead64897708dee5b0735d41642bf", "b7794b4682e54065b4b20c1f1e0182159866afaf48dd1504351a60c23bdf56d6", "8d33e5eded4462a1ddf26e7a86f2722ea5bce178301a1a4db8a712deda1571d3", "9515edb440a3957e8402503b72d75eec589966fbd430520b0579cab65845518f", "fc3d7fb95b751aa5af46afd7a6ce2eac9b9c0560e3cceaa4451eb71c8eceb110", "0db3de6265ecf025f86334912ea15989ca2b08b487bc9ce01858546220d035f7", "2a5e0efc163c846ad92e2fb2980fe32a0be5d0944d80a0533fe04e57b17dae05", "914cd0c4edc69ab498ab4ccb703f02e94c195ef3683f9c08158535957b7629cf", "db14c1b601706bb1e035a7934f3b379c42eb27b138ee4a49a32ff1efe7dfab72", "e88c227bd6e6a6eeccccf598a250e7647f8957af0543104faf8a3a53ce2d2468", "77504e317f11e3ed859315655bfdb3f3f1224810a478e794a60aff011497fbe3", "948265847020b6f4e61fcf71857d0f99ecd955e22d96fe512fe34c94ecefce06", "e5771962d1707546e41562c4077a4be306a26e8c9b5db5659914428fd7689fb0", "e73906d97c817b649909d3dc490e0f3667dfe69e81755566d76ecc3915462cbc", "13642d5d5cf3766650801c177e9d57f0ff4cf1f1fe96c7cf31a27c9b0cc1557d", "7f92622b254e89a9d0b19703f46a9afe348909f9d83b59739958b100881eee0f", "43bc40d426dd34aa854abd2b1010480783a29a79940b505d990c828a61e7fc26", "f309e6ef381399965eb218c130fe99f1407d3e5b240fc3d4a9e81ceb6e3402fb", "53e16b4619f14151a9d01cbd4e803515bfe80aa8f1af34d6bc1d935ac3aae35e", "70d199273debc246cd651a274526ec81317df4327b6a2ef228912216b01af6b7", "85516df3c77bcd46131e8ca135307569d43ec3c370e01c3a42a5516a8412c95c", "2b293f0358e3f648d9b685a8d138163c484fc1bb6960dd763e06b3066b7a8d11", "966f020beb036371fc6c47fbd5552f1ff96fdef576c9a3ed6dd57a5fcd373814", "89ec81c063335e83511efaae472f377df963cf0db61cb1e6cd1f2a7337843818", "68f2aeea7935d78c07a0b55ba9e199f96e88f39c5222621fed77dccd9b6f87e0", "de3b899e493c34694c2ce115f50255e8bb41d127dd918bac122cf05b5774d873", "38460c828983a8349b8773e0dc4d1e54690c2fc8008318e6775a5172207f0d67", "1edf9484488ab076c58fd2ad69240162fa752433a1ff209e2d59c07534fd5273", "50b1bf05ae57ee9f35f6362d2bf68a7826ea3c722ac75ca9db510792330b035d", "70eef4dbc0cc058d751a2ce4c16c1d8354b84e1bfaf67f5975e983f38e909d0f", "3a88262e6e9e5dc95e2532a26ca8e611d324996939ce9aa45035d421025694b2", "8d9aa88aea33627947dceb9052375c761a690e283c33fb47d3c18cc88654fb45", "6e8d82586170ac82d82cce1b289b33a98e4c3deefcc9db45bb2078bb25572ab9", "e7d85454304bcea1b5d84e006516efa830cb971f5793f945ea0ae8e518451a27", "6cd0a44a452bd28f8c0ae7c3d064fa7f3b1c15c7c632cb120700b98e107b5cfb", "4b770327ead5847f2401f3b771ea145a3dd14d5471eff12d333f2c7d686bdef2", "144babc5e2a51df96c91524c137849c80f4c1c27ea10bcee51f1d68fe4ea84df", "a784e6fd04232be876e6dc0336e9cb168fe31debb666f7bb0ed01917a9b1be8f", "2e8489c65942ad25c46db46cddd745f38dc725dd613ba36f028b5619f975682a", "49a2fc0117971f87d97d54c855513ed2f04b64d1a09498184000ca702b7650a7", "98584fa38dd145a03212ec4c199c60509105107306bc266bb9c0b1a48f30925b", "340e69a4982f36ab3b7698287d3cf9e097fe191ab46f43e838b284b558b7050b", "3264ac28cf59ff62ec49add0f38c164a3d5cb4ae3f04f672e50a934c4d63d0e1", "83ccf697238fc65d2ae7f3971da084dd92ad42617c578edc7afeb96a01e4d1e1", "d95a408d3d8770cdbfc6ab787c2085e3603c21da9b188d149abc03cefae669eb", "176bd1c73bd96084d8a931bb2d8000479178cb47b51d54bf2774ab5148f6c3bf", "3a352bff836d879a82ca13d64e75f8902083d67c4b722f495fcfee8daf24f1b2", "c6abd701da62a94cefa4e558f6307fedc150555e5f44448705591c1e94438abc", "70632bc1a04c23decc673ac5c2ff375c6f6ed39833ee1a85bfcf9df7e0ebab47", "2d77afa40b18784758d743395b98ce1ccc3cba3dcbfe5841f5b50eec09ae5fb2", "b1c8d1e84cb191580d09b6d7d2f7224197ec04bbefd385b14219bfdf68cf0234", "4cf753ef02a8d5277553164c200096b7a960f3322bff389891d7e4970cee8f9c", "7db11bd9206df135cb93daedaac4c85c0746ec2da18b145ceefaaa287432071b", "35697bad9278de0c3508ba73b7ee53892d4cf03961166fb2c7de6ac9380fd61f", "22100f1681931f87896f404a525b8ff7f141b6a6d410fc7e6a2c7250768f0b5e", "6584dcaf33ae853a20d3339903b8cd8e591f27afaa15601329ac27534bed4fff", "91c8ab9d8971087c2e003282ce56b755be04a38fbd2396f6cd69ede2b8dc04dd", "87ae2f0b7aa66b6fb1427eb741e7f5c4ca8a5a85a1b79ee309e630b2ae510d55", "44bd686e52b33e84d7cb291dc8cdb6d0110503a8514f0a7e7936a6696b340a2e", "fbc523228dd23245ca7b7bed65d00a9cb3f694852ba4de8e0fd6b0fead41ee51", "d6574a1e2cbd3205c1a15415f279260b2b8b7db0da72c5d45b71af508999ea3d", "9dcc6dc779695257a6f6f502744356552612985d6b3aa32cfdef06b82d336dc7", "09d530bc84b7a0bcd5757d803aa43553642c369a0341f18c17b3e69919bff03a", "9cfe37717f48208b56233e76da5b50148dacf18c0d3c54c2933d469cf1505cf6", "f5cd46582826d320dd4c94e4d9a09f0ff7c31034444a1e93751066f4a01d31dc", "5b28469aaf1b51230733cabb2be660bcc3d94ba846cb5a9613ac1ee0e79da409", "aab72be2080c5389d02ef1f5abe8e149c8d17d73fafb62e760eb59acc3f1d499", "21b85a85d97542430368f84a34edb5ace73b65e49834fc94a6809a9d40170aea", "f3fee8792d50b2f94afe1413f3c17e67bce3196a942b0027fcdbd060746c0026", "3f9f9d90ab0813f0e965fb6f561a91236a30797d439cdb0ef07b45af4e1bbde5", "4e80f586b915ade86f2c498d85201a5acea9ba34f798e7095e07f7df703282ea", "003963e7ab5d794ac509e06d670dcac0cd3f013cd248e42f75c3cd8d3ab20b89", "3c1126669d4c0e2fd2ddd3cf5cfcdee567018f7f9b1eaf51944f43a95216e2ee"];
+var SALT='erca-cofre-v1:';
+var UKEY='erca-cofre-acesso-v1';
 var VALUES=[100, 5, 20, 5, 100, 200, 10, 20, 5, 100, 20, 5, 10, 100, 20, 20, 5, 100, 10, 20, 5, 200, 20, 5, 10, 100, 20, 5, 200, 100, 10, 100, 10, 200, 5, 5, 20, 100, 20, 10, 200, 5, 100, 20, 5, 10, 100, 10, 200, 5, 100, 5, 20, 5, 100, 20, 10, 20, 5, 100, 20, 5, 10, 100, 20, 200, 5, 100, 10, 20, 5, 20, 20, 5, 10, 100, 20, 5, 200, 100, 10, 100, 10, 200, 100, 5, 20, 100, 20, 10, 200, 5, 100, 20, 5, 10, 100, 10, 200, 5, 200, 100, 5, 100, 200, 100, 20, 20, 10, 5, 20, 100, 5, 5, 10, 5, 20, 5, 20, 100, 10, 20, 5, 20, 20, 200, 20, 10, 5, 5, 200, 20, 100, 100, 20, 200, 5, 5, 20, 100, 5, 100, 100, 20, 100, 100, 100, 5, 10, 20, 10, 10, 5, 5, 100, 200, 20, 100, 20, 10, 20, 20, 5, 10, 100, 10, 100, 100, 100, 20, 200, 10, 10, 5, 200, 200, 20, 10, 100, 5, 5, 10, 5, 5, 20, 5, 100, 5, 20, 20, 10, 100, 10, 10, 100, 10, 200, 100, 20, 5];
 var KEY='erca-cofre-10mil-v1';
 var marked=new Array(VALUES.length).fill(false);
@@ -93,7 +134,32 @@ reset.addEventListener('click',function(){
   marked=marked.map(function(){return false;});save();render();disarm();
 });
 function disarm(){armed=false;clearTimeout(timer);reset.textContent='Recomeçar desafio';reset.classList.remove('warn');}
-render();
+
+function sha256hex(t){
+  return crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)).then(function(b){
+    return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2);}).join('');
+  });
+}
+var lockEl=document.getElementById('lock'),chEl=document.getElementById('challenge');
+var started=false;
+function unlock(){lockEl.hidden=true;chEl.hidden=false;reset.hidden=false;if(!started){started=true;render();}}
+function showLock(){lockEl.hidden=false;chEl.hidden=true;reset.hidden=true;}
+showLock();
+try{var saved=localStorage.getItem(UKEY);if(saved&&HASHES.indexOf(saved)>-1){unlock();}}catch(e){}
+var form=document.getElementById('codeForm'),input=document.getElementById('code'),err=document.getElementById('err'),enter=document.getElementById('enter');
+input.addEventListener('input',function(){err.textContent='';});
+form.addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var c=input.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(c.length!==8){err.textContent='Digite os 8 caracteres do código.';return;}
+  if(!(window.crypto&&crypto.subtle)){err.textContent='Abra o link no navegador do celular (Safari ou Chrome).';return;}
+  enter.disabled=true;
+  sha256hex(SALT+c).then(function(h){
+    enter.disabled=false;
+    if(HASHES.indexOf(h)>-1){try{localStorage.setItem(UKEY,h);}catch(e){}unlock();window.scrollTo(0,0);}
+    else{err.textContent='Código inválido. Confira e tente de novo.';}
+  }).catch(function(){enter.disabled=false;err.textContent='Não foi possível conferir. Tente de novo.';});
+});
 })();
 </script>
 </body>
